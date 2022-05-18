@@ -1,13 +1,20 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import {Result} from './../types/Interfaces';
 
-const Card =()=>{
-    return <div className="our-team">
+interface CardComponentProps {
+  album: Result
+}
+
+const Card =({album}: CardComponentProps)=>{
+    return <Link to={`/details-page/${album.id}`} >
+    <div className="our-team m-2" >
     <div className="picture">
-      <img className="img-fluid" src="https://picsum.photos/130/130?image=1027"/>
+      <img className="img-fluid" src={album.album.cover_small} />
     </div>
     <div className="team-content">
-      <h3 className="name">Michele Miller</h3>
-      <h4 className="title">Web Developer</h4>
+      <h3 className="name">{album.title}</h3>
+      <h4 className="title">{album.artist.name}</h4>
     </div>
     <ul className="social">
       <li><a href="https://codepen.io/collection/XdWJOQ/" className="fa fa-facebook" aria-hidden="true"></a></li>
@@ -16,6 +23,7 @@ const Card =()=>{
       <li><a href="https://codepen.io/collection/XdWJOQ/" className="fa fa-linkedin" aria-hidden="true"></a></li>
     </ul>
   </div>
+      </Link>
 
 }
 
