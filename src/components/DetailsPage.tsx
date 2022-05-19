@@ -9,7 +9,6 @@ import { Card } from "react-bootstrap";
 
 const DetailsPage=()=>{
     const [result, setResult] = useState<Details[]>([]);
-    const [searchTerm, setSearchTerm] = useState("queen");
     const [param, setParam] = useState(useParams().id);
  
     console.log(result)
@@ -38,10 +37,14 @@ const DetailsPage=()=>{
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [param]);
 
+useEffect(()=>{
+  console.log("The result: ", result)
+  
 
+},[result])
 
     return <div>
-        <h1>Details</h1>
+        <h1>Details {result[0]?.album.title}</h1>
         
         <Card />
     </div>
