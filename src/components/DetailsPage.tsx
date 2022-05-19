@@ -1,27 +1,29 @@
 import React from "react";
 
 import {useState, useEffect} from "react"
-import { Details, Result } from "../types/Interfaces";
+import { Details } from "../types/Interfaces";
 import { useParams } from "react-router-dom";
 import { Card } from "react-bootstrap";
 
+interface DetailsCompProps {
+  album: Details
+}
 
 
 const DetailsPage=()=>{
-    const [result, setResult] = useState<Details[]>([]);
+    const [result, setResult] = useState<Details | null>(null);
     const [param, setParam] = useState(useParams().id);
  
-    console.log(result)
  
     const getData = async () => {
       let response = await fetch(
-       ` https://striveschool-api.herokuapp.com/api/deezer/track/${param}`
+       `https://striveschool-api.herokuapp.com/api/deezer/track/${param}`
       );
       try {
         if (response.ok) {
           let data = await response.json();
           setResult(data);
-          console.log("Data: ", data);
+      
           console.log("✅ Everything is fine");
         } else {
           console.log("❌ Something is wrong");
@@ -32,19 +34,16 @@ const DetailsPage=()=>{
     };
     
     useEffect(() => {
-       
       getData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [param]);
+    }, []);
 
 useEffect(()=>{
   console.log("The result: ", result)
-  
-
 },[result])
 
     return <div>
-        <h1>Details {result[0]?.album.title}</h1>
+        <h1>Details:{param} {result?.album.id}</h1>
         
         <Card />
     </div>
